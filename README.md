@@ -5,3 +5,4 @@ Tehtävä 1 palautettu [Calculator1](/Calculator1/App.js)
 
 Tehtävä 2 palautettu [Number](/Number/App.js)
 
+Tehtävä 3 kesken flatlist ei toimi [calculatorandhistory](/calculatorandhistory/App.js)
