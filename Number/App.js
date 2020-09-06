@@ -23,8 +23,8 @@ class App extends Component {
 
     if (text === random100) {
       console.log('toimiii');
-      this.setState({ result: 'You guessed the number in ' + yritys + ' quesses'});    
-      Alert.alert('Numeropeli voitettu onnittelut', 'You guessed the number in ' + yritys + ' quesses');
+      this.setState({ result: 'You guessed the number in ' + yritys + ' guesses'});    
+      Alert.alert('Numeropeli voitettu onnittelut', 'You guessed the number in ' + yritys + ' guesses');
     } 
     
     else if (text > random100){
