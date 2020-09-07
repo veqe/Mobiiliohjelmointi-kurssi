@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component, useState } from "react";
-import { StyleSheet, Text, View, Button, Alert, TextInput, FlatList } from "react-native";
+import { StyleSheet, Text, View, Button, Alert, TextInput, FlatList, Dimensions } from "react-native";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { numero1: 0, numero2: 0, tulos: ' ', };
+    this.state = { numero1: 0, numero2: 0, tulos: ' ', flatlisttavarat: [{id: 0, item: 'History',}] };
 
     //const item = [text, setText] = useState('');
     //const data = [data, setData] = useState([]);
@@ -24,29 +24,52 @@ class App extends Component {
     //setData([...data, {key: tulos}]);
     
 
-    const { numero1, numero2 } = this.state;
+    const { numero1, numero2, flatlisttavarat } = this.state;
     if (isPlus) {
-      this.setState({ tulos: numero1 + numero2 });
+      const yhteensa = (numero1 + numero2);
+      const uudettavarat = flatlisttavarat;
+      
+      uudettavarat.push({id: 2, item: (numero1 + ' + ' + numero2 + ' = ' + yhteensa)});
+      //console.log(uudettavarat);
+      this.setState({ tulos: yhteensa, flatlisttavarat: uudettavarat});
+      //console.log(flatlisttavarat);
+
     } else {
-      this.setState({ tulos: numero1 - numero2 });
+
+      const yhteensa = (numero1 - numero2);
+      const uudettavarat = flatlisttavarat;
+      
+      uudettavarat.push({id: 3, item: (numero1 + ' - ' + numero2 + ' = ' + yhteensa)});
+      //console.log(uudettavarat2);
+      this.setState({ tulos: yhteensa, flatlisttavarat: uudettavarat});
+      //console.log(flatlisttavarat);
+
     }
   };
 
+  renderItemz = (flatlisttavara) => {   
+  //console.log(flatlisttavara);
+    return <Text>{flatlisttavara.item.item}</Text>;
+  }
+
   render() {
-    const { numero1, numero2, tulos, historia } = this.state;
+    const { numero1, numero2, tulos, flatlisttavarat } = this.state;
+  //console.log(flatlisttavarat)
+    //const flatlisttavarat = [{id: 0, item: "kivaa"},{id: 1, item: "jotai"}]
+    //const dimensions = Dimensions.get('window');     
+    //const screenWidth = dimensions.width;
+
     return (
       <View style={styles.container}>
         <Text>Result: {tulos}</Text>
         <View style={styles.textii}>
           <TextInput
-            keyboardType={"Numeric"}
-            style={{ width: 200, borderColor: "black", borderWidth: 2 }}
+            style={styles.textii}
             onChangeText={(numero1) => this.setText(numero1)}
             value={`${numero1}`}
           />  
            <TextInput
-            keyboardType={"Numeric"}
-            style={{ width: 200, borderColor: "black", borderWidth: 2 }}
+            style={styles.textii}
             onChangeText={(numero2) => this.setText2(numero2)}
             value={`${numero2}`}
           />                  
@@ -56,13 +79,14 @@ class App extends Component {
           <Button title="--" onPress={(isPlus) => this.buttonPressed(false)} />
         </View>
 
-        {/* <View style={styles.faltspace}>
-        <FlatList 
-        data={data}
-        renderItem={({tulos}) =>
-        <Text>{tulos.key}</Text>}        
+        
+        <FlatList style={{flex: 1}}
+        data={flatlisttavarat}
+        renderItem={this.renderItemz}
+        keyExtractor={(item, index)=> index.toString()}
+       
         />
-        </View> */}
+        
       
       </View>
     );
@@ -81,13 +105,17 @@ const styles = StyleSheet.create({
   btn: {
     alignItems: "center",
     justifyContent: "space-around",
+    borderWidth: 2,
   },
   textii: {
     marginTop: 10,
     marginBottom: 10,
+    borderWidth: 2,
   },
-  faltspace:{
-
+  faltspace: {
+    flex: 1,
+    borderWidth: 1,
+    
   },
 });
 
